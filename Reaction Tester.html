@@ -1,0 +1,65 @@
+<html>
+	<head>
+    	<title>Testing reactions</title>
+        <style>
+            body{
+                font-family: sans-serif;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Test Your Reactions!</h1>
+        <p>Click on the shapes as quickly as possible!</p>
+        <p id="stop" style="font-weight: bold;">Reaction time : </p>
+        <p id="counter"></p>
+        <p style="font-weight: bold;" id="max"></p>
+        <p style="font-weight: bold;" id="min"></p>
+        <button id="again"><b>Play Again!</b></button>
+        <div style="position: relative" id="shapes"></div>
+        
+          <script type="text/javascript">
+              var counter = 1;
+              var s=-1;
+              var save=[];
+              style();
+              var start = new Date().getTime();
+              
+              document.getElementById("shapes").onclick =function(){
+                var end = new Date().getTime();
+                var time = end - start ;
+                  s++;
+                  if (counter !=10){
+                  document.getElementById("stop").innerHTML= "Reaction time : "+time/1000 +"s";
+                      save[s]=time/1000;
+    
+                  style();
+                  counter ++;
+                  }
+                  else{
+                      document.getElementById("counter").innerHTML = "You have Clicked it " + counter + " times"
+                    var max = Math.max(...save);
+                    var min = Math.min(...save);
+                      document.getElementById("min").innerHTML = "Your Fastest Reaction was " + min +"s"
+                      document.getElementById("max").innerHTML = "Your Slowest Reaction was " + max+ "s"
+                  }
+              }
+              if(document.getElementById("shapes").style.backgroundColor == "#FFFFFF"){
+                  style();
+              }
+              
+              document.getElementById("again").onclick = function() {
+                  location.reload();
+              }
+              function style(){
+                start = new Date().getTime();
+                document.getElementById("shapes").style.top = Math.floor((Math.random()*100+50));
+                document.getElementById("shapes").style.left = Math.floor((Math.random()*400+50));
+                document.getElementById("shapes").style.height = Math.floor((Math.random()*200+100));
+                document.getElementById("shapes").style.width = Math.floor((Math.random()*200+100));
+                document.getElementById("shapes").style.backgroundColor = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
+                document.getElementById("shapes").style.borderRadius =  Math.floor((Math.random()*50+0))+"%";
+              }
+              
+        </script>
+    </body>
+</html>
